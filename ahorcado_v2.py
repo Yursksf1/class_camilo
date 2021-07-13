@@ -55,38 +55,32 @@ lista_letras_adivinadas = []
 print('_' * len(palabra_secreta))
 
 while True:
-    while True:
-        letra_intento = input("adivina una letra: ").lower()
-        lista_letras_intentos.append(letra_intento)
-        if letra_intento in lista_letras_intentos:
-            print("ya habias intentado con esa letra intenta con otra")
+    letra_intento = input("adivina una letra: ").lower()
+    if letra_intento in lista_letras_intentos:
+        print("ya habias intentado con esa letra intenta con otra")
+    else:
+        if letra_intento in palabra_secreta:
+            print("felicidades adivinaste una letra")
+            lista_letras_adivinadas.append(letra_intento)
         else:
-            if letra_intento in palabra_secreta:
-                print("felicidades adivinaste una letra")
-                lista_letras_adivinadas.append(letra_intento)
+            vidas = vidas - 1
+            print("te haz equivocado y perdido una vida")
+            print("te quedan " + str(vidas) + "palbra_secreta")
+
+        estatus_actual = ""
+        letras_faltantes = len(palabra_secreta)
+        for letra in palabra_secreta:
+            if letra in lista_letras_adivinadas:
+                estatus_actual = estatus_actual + letra
             else:
-                vidas = vidas - 1
-                print("te haz equivocado y perdido una vida")
-                print("te quedan " + str(vidas) + "palbra_secreta")
+                estatus_actual = estatus_actual + '_'
 
-            estatus_actual = " "
-
-            letras_faltantes = 0
-            for letra in palabra_secreta:
-                if letra in lista_letras_adivinadas:
-                    estatus_actual = estatus_actual + letra
-
-                else:
-                    estatus_actual = estatus_actual + letra
-
-                # else:
-                #     estatus_actual = estatus_actual + " "
-                #     letras_faltantes = letras_faltantes + 1
-
-            ##imprimir palabra con algunas letras
+        ##imprimir palabra con algunas letras
         print(estatus_actual)
 
-        if letras_faltante == 0:
+        if palabra_secreta == estatus_actual:
             print("Felicidades haz ganado")
             print("la palabra secreta es: + palabra_secreta")
             break
+            
+    lista_letras_intentos.append(letra_intento)
